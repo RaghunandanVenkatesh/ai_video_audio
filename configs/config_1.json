@@ -3,11 +3,19 @@
     "rate": 22050,
     "width": 1080,
     "height": 1920,
+    "filePath": "output",
+    "cache": ".cache",
     "tts": {
-        "deepPhony": {
+        "DeepPoniesTTS": {
             "speaker": "Bart Simpson",
             "talking_speed": 0.9,
-            "model_path": "model_data"
+            "text": "Life is beautifull and happy. There are many moments to give you happiness."
+        }
+    },
+    "ttv": {
+        "PixabayTTV": {
+            "prompt": "life",
+            "token": "41957817-44a3fc658c5006e81d2c66adc"
         }
     }
 }

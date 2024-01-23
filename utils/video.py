@@ -42,6 +42,9 @@ class VideoData:
     def get_fps(self):
         return self.video.fps
     
+    def get_duration(self):
+        return self.video.duration
+    
     def get_audio(self):
         return self.video.audio.to_numpy()
     

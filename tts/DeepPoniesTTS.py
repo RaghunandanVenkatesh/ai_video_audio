@@ -9,16 +9,19 @@ import soundfile as sf
 import numpy as np
 from tqdm import tqdm
 from tts.utils.DeepPoniesTTS import *
-
+import os
+os.environ['CURL_CA_BUNDLE'] = ''
 
 class DeepPoniesTTS():
-    def __init__(self, model_path: str):
-        download_dependencies()
+    def __init__(self, config_file):
+        self.confile_file = config_file
+        model_path = os.environ['HF_DATASETS_CACHE']+"/DeepPoniesTTS"
+        download_dependencies(model_path)
         self.g2p = G2p()
         self.acoustic_model = torch.jit.load(Path(model_path) / "acoustic_model.pt")
         self.style_predictor = torch.jit.load(Path(model_path) / "style_predictor.pt")        
         self.vocoder = torch.jit.load(Path(model_path)  / "vocoder.pt")
-        self.tokenizer = AutoTokenizer.from_pretrained("prajjwal1/bert-tiny")
+        self.tokenizer = AutoTokenizer.from_pretrained("prajjwal1/bert-tiny", verify=False)
         self.normalizer = Normalizer(input_case='cased', lang='en')
         self.speaker2id = self.get_speaker2id()
         self.symbol2id = self.get_symbol2id()
@@ -30,7 +33,7 @@ class DeepPoniesTTS():
 
     def get_speaker2id(self):
         speaker2id = {}
-        with open(Path(".") / "tts/assests/DeepPhoniesTTS" / "speakerCategories.json", "r") as json_file:
+        with open(Path(".") / "tts/assests/DeepPoniesTTS" / "speakerCategories.json", "r") as json_file:
             data = json.load(json_file)
         for category in data.keys():
             for item in data[category]["items"]:
@@ -40,13 +43,13 @@ class DeepPoniesTTS():
         return speaker2id
 
     def get_symbol2id(self):
-        with open(Path(".") / "tts/assests/DeepPhoniesTTS "/ "symbol2id.json", "r") as json_file:
+        with open(Path(".") / "tts/assests/DeepPoniesTTS"/ "symbol2id.json", "r") as json_file:
             symbol2id = json.load(json_file)
         return symbol2id
 
     def get_lexicon(self):
         dic = {}
-        with open(Path(".") / "tts/assests/DeepPhoniesTTS" / "lexicon.txt", "r") as f:
+        with open(Path(".") / "tts/assests/DeepPoniesTTS" / "lexicon.txt", "r") as f:
             lines = f.readlines()
         for line in lines:
             split = line.rstrip().split(" ")

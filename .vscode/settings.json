@@ -1,0 +1,5 @@
+{
+
+    "python.defaultInterpreterPath":  "C:/Users/ragven/.conda/envs/yt_ai/python.exe",
+    "terminal.integrated.env.windows": {"PYTHONPATH": "${workspaceFolder}"}
+}

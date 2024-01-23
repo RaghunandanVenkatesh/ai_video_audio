@@ -12,12 +12,12 @@ import gdown
 from tqdm import tqdm
 import re
 
-def download_dependencies():
+def download_dependencies(model_path):
     nltk.download('punkt')
-    out_dir = Path(".") / "torchscript"
+    out_dir = Path(model_path)
     # TODO change the download path
     if not (out_dir/"vocoder.pt").exists():
-        gdown.download_folder("https://drive.google.com/drive/folders/1LVHA7L-qaPXuSgodxFQy3nrtsL5iqqiX?usp=sharing", use_cookies=False, output=str(out_dir))
+        gdown.download_folder("https://drive.google.com/drive/folders/1LVHA7L-qaPXuSgodxFQy3nrtsL5iqqiX?usp=sharing",verify=False ,use_cookies=False, output=str(out_dir))
     else:
         print("Google drive data already downloaded")
 
