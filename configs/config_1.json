@@ -1,0 +1,13 @@
+{
+    "fps": 10,
+    "rate": 22050,
+    "width": 1080,
+    "height": 1920,
+    "tts": {
+        "deepPhony": {
+            "speaker": "Bart Simpson",
+            "talking_speed": 0.9,
+            "model_path": "model_data"
+        }
+    }
+}

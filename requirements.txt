@@ -1,0 +1,12 @@
+cython
+scipy
+torch
+imageio==2.25.1
+stable_diffusion_videos
+gdown
+tqdm
+matplotlib
+nemo-text-processing
+soundfile
+g2p-en
+accelerate

@@ -1,0 +1,3 @@
+[submodule "utils/pixabay"]
+	path = utils/pixabay
+	url = https://github.com/RaghunandanVenkatesh/pixabay.git
