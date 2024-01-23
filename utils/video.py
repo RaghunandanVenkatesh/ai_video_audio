@@ -16,7 +16,7 @@ def visualize_video_colab(video_path):
 class VideoData:
     def __init__(self, outputfp, size):
         self.outputfp = outputfp
-        self.video = ColorClip(size, duration=0.01)
+        self.video = ColorClip(size, color=(0,0,0), duration=0.01)
         self.audiofp = ""
         
     def add_videos(self, videoList = []):
