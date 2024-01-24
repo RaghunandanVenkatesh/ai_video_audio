@@ -5,6 +5,7 @@
     "height": 1920,
     "filePath": "output",
     "cache": ".cache",
+    "dataFile": "data/facts_1.csv",
     "tts": {
         "DeepPoniesTTS": {
             "speaker": "Bart Simpson",
