@@ -3,7 +3,7 @@
     "rate": 22050,
     "width": 1080,
     "height": 1920,
-    "filePath": "output",
+    "outPath": "output",
     "cache": ".cache",
     "dataFile": "data/facts_1.csv",
     "tts": {

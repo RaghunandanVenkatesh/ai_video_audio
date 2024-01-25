@@ -13,4 +13,6 @@ pip install torch
 pip install moviepy
 pip install imageio
 pip install jupyter notebook
+pip install TTS
+pip install git+https://github.com/suno-ai/bark.git
 set SSL_NO_VERIFY=

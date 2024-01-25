@@ -10,3 +10,4 @@ nemo-text-processing
 soundfile
 g2p-en
 accelerate
+TTS
