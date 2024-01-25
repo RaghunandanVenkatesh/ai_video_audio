@@ -1,6 +1,6 @@
-from utils.pixabay import pixabay as pb
-from utils.audio import AudioData 
-from utils.video import VideoData 
+from yt_ai.utils.pixabay import pixabay as pb
+from yt_ai.utils.audio import AudioData 
+from yt_ai.utils.video import VideoData 
 from random import shuffle
 import soundfile as sf
 

@@ -8,7 +8,7 @@ from g2p_en import G2p
 import soundfile as sf
 import numpy as np
 from tqdm import tqdm
-from tts.utils.DeepPoniesTTS import *
+from yt_ai.tts.utils.DeepPoniesTTS import *
 import os
 os.environ['CURL_CA_BUNDLE'] = ''
 
@@ -33,7 +33,7 @@ class DeepPoniesTTS():
 
     def get_speaker2id(self):
         speaker2id = {}
-        with open(Path(".") / "tts/assests/DeepPoniesTTS" / "speakerCategories.json", "r") as json_file:
+        with open(Path(__file__).parent / "assests/DeepPoniesTTS" / "speakerCategories.json", "r") as json_file:
             data = json.load(json_file)
         for category in data.keys():
             for item in data[category]["items"]:
@@ -43,13 +43,13 @@ class DeepPoniesTTS():
         return speaker2id
 
     def get_symbol2id(self):
-        with open(Path(".") / "tts/assests/DeepPoniesTTS"/ "symbol2id.json", "r") as json_file:
+        with open(Path(__file__).parent / "assests/DeepPoniesTTS"/ "symbol2id.json", "r") as json_file:
             symbol2id = json.load(json_file)
         return symbol2id
 
     def get_lexicon(self):
         dic = {}
-        with open(Path(".") / "tts/assests/DeepPoniesTTS" / "lexicon.txt", "r") as f:
+        with open(Path(__file__).parent / "assests/DeepPoniesTTS" / "lexicon.txt", "r") as f:
             lines = f.readlines()
         for line in lines:
             split = line.rstrip().split(" ")

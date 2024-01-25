@@ -1,7 +1,7 @@
 import json
 import importlib
 import os
-from utils.logger import logger
+from yt_ai.utils.logger import logger
 
 class Config:
     def __init__(self, configFile):
@@ -19,7 +19,7 @@ class Config:
         for model in self.config["tts"]:
             logger.info(f"Loading tts model: {model}")
             # lazy loading
-            module = importlib.import_module(f'tts.{model}')
+            module = importlib.import_module(f'yt_ai.tts.{model}')
             self.ttsDict[model] = getattr(module, f"{model}")(self.config)
             # self.ttsDict[model] = self.ttsDict[model]
 
@@ -28,7 +28,7 @@ class Config:
             logger.info(f"Loading ttv model: {model}")
              
              # lazy loading
-            module = importlib.import_module(f'ttv.{model}')
+            module = importlib.import_module(f'yt_ai.ttv.{model}')
             self.ttvDict[model] = getattr(module, f"{model}")(self.config)
             
     def get_tts_dict(self):
