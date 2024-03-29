@@ -1,13 +1,7 @@
-from yt_ai.utils.configreader import Config
-from yt_ai.utils.logger import logger
 
+from yt_ai import yt_ai
+import dotwiz
 
-import pandas as pd
-
-
-print("Completed")
-# config = Config("configs/config_1.json")
-
-
-print("complted")
- 
+core = yt_ai.Core("configs/config_2.json")
+core.run()
+print("Complted")

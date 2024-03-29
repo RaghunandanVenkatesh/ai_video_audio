@@ -11,3 +11,4 @@ soundfile
 g2p-en
 accelerate
 TTS
+pytorch-seed
