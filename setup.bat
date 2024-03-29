@@ -16,3 +16,4 @@ pip install jupyter notebook
 pip install TTS
 pip install git+https://github.com/suno-ai/bark.git
 set SSL_NO_VERIFY=
+pip install pytorch-seed

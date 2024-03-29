@@ -14,3 +14,4 @@ apt install imagemagick
 cat /etc/ImageMagick-6/policy.xml | sed 's/none/read,write/g'> /etc/ImageMagick-6/policy.xml
 pip install TTS
 pip install git+https://github.com/suno-ai/bark.git
+pip install pytorch-seed

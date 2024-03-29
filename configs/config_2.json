@@ -1,0 +1,31 @@
+{
+    "fps": 10,
+    "rate": 22050,
+    "width": 1080,
+    "height": 1920,
+    "outPath": "output",
+    "cache": ".cache",
+    "use_cpu": "true",
+    "dataFile": "data/facts_2.csv",
+    "saveTemp": false,
+    "tts": {
+        "BarkTTS": {
+            "speaker": "en_speaker_1",
+            "talking_speed": 1.1
+        }
+    },
+    "ttv": {
+        "PixabayTTV": {
+            "token": "41957817-44a3fc658c5006e81d2c66adc",
+            "quality": "large"
+        }
+   
+    },
+    "text_properties" :
+    {
+        "font": "Arial",
+        "font_size": 15,
+        "bg_color": "black",
+        "font_color": "white"
+    }
+}

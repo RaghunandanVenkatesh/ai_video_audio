@@ -7,8 +7,8 @@ import logging
 from logging import Logger
 from pathlib import Path
 
-FILE_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s (%(filename)s:%(lineno)d)"
-TERM_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+FILE_FORMAT = "%(asctime)s - %(levelname)s - %(message)s (%(filename)s:%(lineno)d)"
+TERM_FORMAT = "%(asctime)s - %(levelname)s - %(message)s"
 
 class CustomFormatterTerminal(logging.Formatter):
   """
