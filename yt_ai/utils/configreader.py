@@ -1,21 +1,20 @@
 import json
-import importlib
+import importlib #This module provides a way to import modules programmatically.
 import os
-from yt_ai.utils.logger import logger
+from yt_ai.utils.logger import logger #A custom logger imported from yt_ai.utils.logger that is used for logging information, warnings, and errors.
 from yt_ai.utils.datareader import read_data_csv
-from moviepy.config import change_settings
+from moviepy.config import change_settings #This is a function from the moviepy library, used to change settings such as the path to ImageMagick.
 
-
-class Config:
+class Config:    #This defines the Config class, which will encapsulate the logic for loading and handling the configuration settings.
     def __init__(self, configFile):
-        self.configFile = configFile
-        logger.info(f"Reading Config file from {configFile}")
+        self.configFile = configFile   #This is the path to the JSON configuration file.
+        logger.info(f"Reading Config file from {configFile}")   #The constructor logs that it is reading the configuration file.
         with open(self.configFile, "r") as f:
-            self.config = json.load(f)
+            self.config = json.load(f)   #The JSON file is opened and loaded into a dictionary, which is stored in self.config
         
-        os.environ['CURL_CA_BUNDLE'] = ''
+        os.environ['CURL_CA_BUNDLE'] = '' #This sets the environment variable CURL_CA_BUNDLE to an empty string, which is necessary for certain operations in moviepy that involve image processing and likely to disable SSL verification (though this might have security implications).
         
-        change_settings({"IMAGEMAGICK_BINARY": r"C:\Program Files\ImageMagick-7.1.1-Q16-HDRI\magick.exe"})
+        change_settings({"IMAGEMAGICK_BINARY": r"C:\Program Files\ImageMagick-7.1.1-Q16-HDRI\magick.exe"})  #This sets the path to the ImageMagick binary, which is necessary for certain operations in moviepy that involve image processing.
         
         logger.debug(f"Setting cache folder : {self.config['cache']}")
         os.environ['HF_DATASETS_CACHE']=self.config["cache"]

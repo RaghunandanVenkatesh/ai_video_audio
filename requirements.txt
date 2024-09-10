@@ -12,3 +12,8 @@ g2p-en
 accelerate
 TTS
 pytorch-seed
+dotwiz
+soundfile
+IPython
+moviepy
+pillow
