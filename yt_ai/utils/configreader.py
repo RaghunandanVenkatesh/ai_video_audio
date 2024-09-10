@@ -14,7 +14,7 @@ class Config:    #This defines the Config class, which will encapsulate the logi
         
         os.environ['CURL_CA_BUNDLE'] = '' #This sets the environment variable CURL_CA_BUNDLE to an empty string, which is necessary for certain operations in moviepy that involve image processing and likely to disable SSL verification (though this might have security implications).
         
-        change_settings({"IMAGEMAGICK_BINARY": r"C:\Program Files\ImageMagick-7.1.1-Q16-HDRI\magick.exe"})  #This sets the path to the ImageMagick binary, which is necessary for certain operations in moviepy that involve image process.
+        change_settings({"IMAGEMAGICK_BINARY": r"C:\Program Files\ImageMagick-7.1.1-Q16-HDRI\magick.exe"})  #This sets the path to the ImageMagick binary, which is necessary for certain operations in moviepy that involve image processing.
         
         logger.debug(f"Setting cache folder : {self.config['cache']}")
         os.environ['HF_DATASETS_CACHE']=self.config["cache"]

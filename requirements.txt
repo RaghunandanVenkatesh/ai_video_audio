@@ -16,5 +16,5 @@ dotwiz
 soundfile
 IPython
 moviepy
-pillow
 pandas
+pillow
