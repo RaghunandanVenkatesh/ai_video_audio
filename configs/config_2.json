@@ -6,7 +6,7 @@
     "outPath": "output",
     "cache": ".cache",
     "use_cpu": "true",
-    "dataFile": "data/facts_2.csv",
+    "dataFile": "data/facts_with_timestamps.csv",
     "saveTemp": false,
     "tts": {
         "BarkTTS": {
@@ -19,13 +19,10 @@
             "token": "41957817-44a3fc658c5006e81d2c66adc",
             "quality": "large"
         }
-   
     },
-    "text_properties" :
-    {
+    "text_properties": {
         "font": "Arial",
-        "font_size": 15,
-        "bg_color": "black",
-        "font_color": "white"
+        "font_color": "white",
+        "bg_color": "black"
     }
 }

@@ -18,3 +18,4 @@ IPython
 moviepy
 pandas
 pillow
+bark

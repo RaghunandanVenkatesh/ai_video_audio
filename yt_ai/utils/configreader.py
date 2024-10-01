@@ -1,53 +1,94 @@
 import json
-import importlib #This module provides a way to import modules programmatically.
+import importlib
 import os
-from yt_ai.utils.logger import logger #A custom logger imported from yt_ai.utils.logger that is used for logging information, warnings, and errors.
+from yt_ai.utils.logger import logger
 from yt_ai.utils.datareader import read_data_csv
-from moviepy.config import change_settings #This is a function from the moviepy library, used to change settings such as the path to ImageMagick.
+from moviepy.config import change_settings
+from moviepy.editor import VideoFileClip, TextClip, CompositeVideoClip
+import csv
 
-class Config:    #This defines the Config class, which will encapsulate the logic for loading and handling the configuration settings.
+class Config:
     def __init__(self, configFile):
-        self.configFile = configFile   #This is the path to the JSON configuration file.
-        logger.info(f"Reading Config file from {configFile}")   #The constructor logs that it is reading the configuration file.
+        self.configFile = configFile
+        logger.info(f"Reading Config file from {configFile}")
         with open(self.configFile, "r") as f:
-            self.config = json.load(f)   #The JSON file is opened and loaded into a dictionary, which is stored in self.config
+            self.config = json.load(f)
         
-        os.environ['CURL_CA_BUNDLE'] = '' #This sets the environment variable CURL_CA_BUNDLE to an empty string, which is necessary for certain operations in moviepy that involve image processing and likely to disable SSL verification (though this might have security implications).
+        os.environ['CURL_CA_BUNDLE'] = ''
+        change_settings({"IMAGEMAGICK_BINARY": r"C:\Program Files\ImageMagick-7.1.1-Q16-HDRI\magick.exe"})
         
-        change_settings({"IMAGEMAGICK_BINARY": r"C:\Program Files\ImageMagick-7.1.1-Q16-HDRI\magick.exe"})  #This sets the path to the ImageMagick binary, which is necessary for certain operations in moviepy that involve image processing.
-        
-        logger.debug(f"Setting cache folder : {self.config['cache']}")
-        os.environ['HF_DATASETS_CACHE']=self.config["cache"]
+        logger.debug(f"Setting cache folder: {self.config['cache']}")
+        os.environ['HF_DATASETS_CACHE'] = self.config["cache"]
         if self.config["use_cpu"]:
             os.environ["CUDA_VISIBLE_DEVICES"] = ""
             os.environ["SUNO_OFFLOAD_CPU"] = "True"
             os.environ["SUNO_USE_SMALL_MODELS"] = "True"
         
         self.data = read_data_csv(self.config["dataFile"])
+        self.ensure_output_directories()
 
-        # self._decode_tts()
-        # self._decode_ttv()
-        
+    def ensure_output_directories(self):
+        """Ensure that the output directories exist."""
+        out_path = self.config.get('outPath', 'output')
+        pixabay_dir = os.path.join(out_path, 'PixabayTTV')
+        final_dir = os.path.join(out_path, 'final_videos')
+
+        if not os.path.exists(pixabay_dir):
+            os.makedirs(pixabay_dir)
+            logger.info(f"Created directory: {pixabay_dir}")
+
+        if not os.path.exists(final_dir):
+            os.makedirs(final_dir)
+            logger.info(f"Created directory: {final_dir}")
+
     def decode_tts(self):
         ttsDict = {}
         for model in self.config["tts"]:
             logger.info(f"Loading tts model: {model}")
-            # lazy loading
             module = importlib.import_module(f'yt_ai.tts.{model}')
             ttsDict[model] = getattr(module, f"{model}")(self.config)
-            # self.ttsDict[model] = self.ttsDict[model]
         return ttsDict
 
     def decode_ttv(self):
         ttvDict = {}
         for model in self.config["ttv"]:
             logger.info(f"Loading ttv model: {model}")
-             # lazy loading
             module = importlib.import_module(f'yt_ai.ttv.{model}')
             ttvDict[model] = getattr(module, f"{model}")(self.config)
         return ttvDict
-            
-  
+
+    def apply_subtitles(self, video_path, subtitle_path, output_path):
+        # Log the video path for verification
+        logger.info(f"Applying subtitles to video: {video_path}")
+
+        # Ensure the path exists before processing
+        if not os.path.exists(video_path):
+            raise FileNotFoundError(f"Video file not found at path: {video_path}")
+
+        # Proceed with processing the video with subtitles
+        video = VideoFileClip(video_path)
+
+        subtitles = []
+        with open(subtitle_path, newline='') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                fact = row['Facts']
+                start_time = float(row['Start Time'])
+                end_time = float(row['End Time'])
+
+                # Adjust font size based on video resolution
+                font_size = max(int(video.size[1] * 0.03), 24)  # 3% of video height or minimum 24
+
+                # Position subtitle in the center of the video
+                subtitle = TextClip(fact, fontsize=font_size, font="Arial", color='white', bg_color='black')
+                subtitle = subtitle.set_position(('center', 'center')).set_duration(end_time - start_time)
+                subtitle = subtitle.set_start(start_time)
+
+                subtitles.append(subtitle)
+
+        final = CompositeVideoClip([video] + subtitles)
+        final.write_videofile(output_path, fps=video.fps)
+
     def get_config(self):
         return self.config
 

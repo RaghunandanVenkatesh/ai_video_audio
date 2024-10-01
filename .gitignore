@@ -51,4 +51,5 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
-output/PixabayTTV/*.mp4
+output/PixabayTTV/1_final_with_subtitles.mp4
+venv/
