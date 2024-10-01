@@ -52,4 +52,5 @@ coverage.xml
 docs/_build/
 
 output/PixabayTTV/1_final_with_subtitles.mp4
+output/PixabayTTV/*.mp4
 venv/
