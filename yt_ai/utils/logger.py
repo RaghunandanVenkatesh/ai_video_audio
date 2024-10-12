@@ -17,7 +17,7 @@ class CustomFormatterTerminal(logging.Formatter):
   HEADER = '\033[95m'
   DEBUG = '\033[6;30;44m'
   WARNING = '\033[0;30;43m'
-  INFO = '\033[6;30;47m'
+  INFO = '\033[0;30;47m'
   FAIL = '\033[0;30;41m'
   ENDC = '\033[0m'
 

@@ -78,6 +78,8 @@ class PixabayTTV():
                 break
         
         final_clip = concatenate_videoclips(self.video_clips)
+        final_clip = final_clip.subclip(0, audioDur)
+        logger.info(f"video duration: {final_clip.duration}")
         final_clip = final_clip.set_audio(AudioFileClip(self.audio_path))
         
         self.final_clip = final_clip
