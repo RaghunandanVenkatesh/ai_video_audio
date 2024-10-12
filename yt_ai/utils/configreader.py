@@ -80,7 +80,7 @@ class Config:
                 font_size = max(int(video.size[1] * 0.03), 24)  # 3% of video height or minimum 24
 
                 # Position subtitle in the center of the video
-                subtitle = TextClip(fact, fontsize=font_size, font="Arial", color='white', bg_color='black')
+                subtitle = TextClip(fact, fontsize=font_size, font="Arial", color='white')
                 subtitle = subtitle.set_position(('center', 'center')).set_duration(end_time - start_time)
                 subtitle = subtitle.set_start(start_time)
 
