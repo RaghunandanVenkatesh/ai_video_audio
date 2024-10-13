@@ -70,7 +70,7 @@ class PixabayTTV():
                 continue
                 
             # Load video clip using MoviePy
-            videoClip = VideoFileClip(videoUrl)
+            videoClip = VideoFileClip(videoUrl, target_resolution=(1920, 1080))
             videoDur += videoClip.duration
             self.video_clips.append(videoClip)
             if videoDur >= audioDur:
@@ -79,7 +79,6 @@ class PixabayTTV():
         
         final_clip = concatenate_videoclips(self.video_clips)
         final_clip = final_clip.subclip(0, audioDur)
-        logger.info(f"video duration: {final_clip.duration}")
         final_clip = final_clip.set_audio(AudioFileClip(self.audio_path))
         
         self.final_clip = final_clip
