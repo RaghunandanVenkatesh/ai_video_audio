@@ -77,7 +77,7 @@ class Config:
                 end_time = float(row['End Time'])
 
                 # Adjust font size based on video resolution
-                font_size = max(int(video.size[1] * 0.03), 24)  # 3% of video height or minimum 24
+                font_size = max(int(video.size[0] * 0.035), 24)  # 3% of video height or minimum 24
 
                 # Position subtitle in the center of the video
                 subtitle = TextClip(fact, fontsize=font_size, font="Arial", color='white')
