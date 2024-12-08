@@ -15,7 +15,7 @@ class Config:
             self.config = json.load(f)
         
         os.environ['CURL_CA_BUNDLE'] = ''
-        change_settings({"IMAGEMAGICK_BINARY": r"C:\Program Files\ImageMagick-7.1.1-Q16-HDRI\magick.exe"})
+        change_settings({"IMAGEMAGICK_BINARY": r"/home/rg/projects/ai_video_audio/magick"})
         
         logger.debug(f"Setting cache folder: {self.config['cache']}")
         os.environ['HF_DATASETS_CACHE'] = self.config["cache"]
@@ -57,7 +57,7 @@ class Config:
             ttvDict[model] = getattr(module, f"{model}")(self.config)
         return ttvDict
 
-    def apply_subtitles(self, video_path, subtitle_path, output_path):
+    def apply_subtitles(self, video_path, id_df, output_path):
         # Log the video path for verification
         logger.info(f"Applying subtitles to video: {video_path}")
 
@@ -69,22 +69,22 @@ class Config:
         video = VideoFileClip(video_path)
 
         subtitles = []
-        with open(subtitle_path, newline='') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                fact = row['Facts']
-                start_time = float(row['Start Time'])
-                end_time = float(row['End Time'])
+        # with open(subtitle_path, newline='') as csvfile:
+        #     reader = csv.DictReader(csvfile)
+        #     for row in reader:
+        fact = id_df.iat[0,0]
+        start_time = float(id_df.iat[0,1])
+        end_time = float(id_df.iat[0,2])
 
-                # Adjust font size based on video resolution
-                font_size = max(int(video.size[0] * 0.035), 24)  # 3% of video height or minimum 24
+        # Adjust font size based on video resolution
+        font_size = max(int(video.size[0] * 0.035), 24)  # 3% of video height or minimum 24
 
-                # Position subtitle in the center of the video
-                subtitle = TextClip(fact, fontsize=font_size, font="Arial", color='white')
-                subtitle = subtitle.set_position(('center', 'center')).set_duration(end_time - start_time)
-                subtitle = subtitle.set_start(start_time)
+        # Position subtitle in the center of the video
+        subtitle = TextClip(fact, fontsize=font_size, font="Arial", color='white')
+        subtitle = subtitle.set_position(('center', 'center')).set_duration(end_time - start_time)
+        subtitle = subtitle.set_start(start_time)
 
-                subtitles.append(subtitle)
+        subtitles.append(subtitle)
 
         final = CompositeVideoClip([video] + subtitles)
         final.write_videofile(output_path, fps=video.fps)

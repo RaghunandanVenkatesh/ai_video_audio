@@ -1,3 +1,9 @@
 Id,Prompts,Facts,Start Time,End Time
-1,Landscape,"The mere presence of other people can boost your performance, known as the social facilitation effect",0,8
-1,Winter,"People who are good at lying are also good at detecting lies, because they are more aware of the signs of deception",8,19
+1,Rise of Ashoka,"Ashoka, the grandson of Chandragupta Maurya, 
+ascended the throne of the Mauryan Empire around 268 BCE.",0,10
+2,Kalinga War,"The Kalinga War, fought between the Mauryan Empire
+ under Ashoka and the state of Kalinga, led to massive bloodshed and 
+ loss of life. It deeply impacted Ashoka, leading him to embrace Buddhism.",11,26
+3,Ashoka's Conversion,"Following the Kalinga War, 
+Ashoka converted to Buddhism and vowed to lead by 
+principles of peace and non-violence.",27,37

@@ -11,7 +11,7 @@
     "tts": {
         "BarkTTS": {
             "speaker": "en_speaker_1",
-            "talking_speed": 1.1
+            "talking_speed": 1.0
         }
     },
     "ttv": {
