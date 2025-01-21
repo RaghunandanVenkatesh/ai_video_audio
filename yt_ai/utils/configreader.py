@@ -3,8 +3,9 @@ import importlib
 import os
 from yt_ai.utils.logger import logger
 from yt_ai.utils.datareader import read_data_csv
-from moviepy.config import change_settings
-from moviepy.editor import VideoFileClip, TextClip, CompositeVideoClip
+from moviepy.video.io.VideoFileClip import VideoFileClip
+from moviepy.video.VideoClip import TextClip
+from moviepy.video.compositing.CompositeVideoClip import CompositeVideoClip
 import csv
 
 class Config:
@@ -14,8 +15,8 @@ class Config:
         with open(self.configFile, "r") as f:
             self.config = json.load(f)
         
-        os.environ['CURL_CA_BUNDLE'] = ''
-        change_settings({"IMAGEMAGICK_BINARY": r"/home/rg/projects/ai_video_audio/magick"})
+        # os.environ['CURL_CA_BUNDLE'] = ''
+        # change_settings({"IMAGEMAGICK_BINARY": r"/home/rg/projects/ai_video_audio/magick"})
         
         logger.debug(f"Setting cache folder: {self.config['cache']}")
         os.environ['HF_DATASETS_CACHE'] = self.config["cache"]
@@ -80,9 +81,9 @@ class Config:
         font_size = max(int(video.size[0] * 0.035), 24)  # 3% of video height or minimum 24
 
         # Position subtitle in the center of the video
-        subtitle = TextClip(fact, fontsize=font_size, font="Arial", color='white')
-        subtitle = subtitle.set_position(('center', 'center')).set_duration(end_time - start_time)
-        subtitle = subtitle.set_start(start_time)
+        subtitle = TextClip(text=fact, font_size=font_size, font="/usr/share/fonts/truetype/ubuntu/Ubuntu-Th.ttf", color='white')
+        subtitle = subtitle.with_position(('center', 'center')).with_duration(end_time - start_time)
+        subtitle = subtitle.with_start(start_time)
 
         subtitles.append(subtitle)
 

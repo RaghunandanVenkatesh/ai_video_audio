@@ -1,7 +1,10 @@
 from IPython.display import HTML
 from base64 import b64encode
-from moviepy.editor import VideoFileClip, CompositeAudioClip, TextClip
-from moviepy.editor import concatenate_videoclips, ColorClip, AudioFileClip, CompositeVideoClip
+from moviepy.video.io.VideoFileClip import VideoFileClip
+from moviepy.video.VideoClip import TextClip, ColorClip
+from moviepy.video.compositing.CompositeVideoClip import CompositeVideoClip
+from moviepy.audio.io.AudioFileClip import AudioFileClip
+from moviepy.video.compositing.CompositeVideoClip import concatenate_videoclips
 import numpy as np
 from yt_ai.utils.logger import logger
 

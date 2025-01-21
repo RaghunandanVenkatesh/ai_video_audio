@@ -7,8 +7,9 @@ from yt_ai.utils.logger import logger
 import time
 from pathlib import Path
 import os
-from moviepy.editor import concatenate_videoclips, VideoFileClip
-from moviepy.editor import AudioFileClip
+from moviepy.video.io.VideoFileClip import VideoFileClip
+from moviepy.video.compositing.CompositeVideoClip import concatenate_videoclips
+from moviepy.audio.io.AudioFileClip import AudioFileClip
 
 class AudioData:
     def __init__(self, audio_path):
@@ -78,8 +79,8 @@ class PixabayTTV():
                 break
         
         final_clip = concatenate_videoclips(self.video_clips)
-        final_clip = final_clip.subclip(0, audioDur)
-        final_clip = final_clip.set_audio(AudioFileClip(self.audio_path))
+        final_clip = final_clip.subclipped(0, audioDur)
+        final_clip = final_clip.with_audio(AudioFileClip(self.audio_path))
         
         self.final_clip = final_clip
         
